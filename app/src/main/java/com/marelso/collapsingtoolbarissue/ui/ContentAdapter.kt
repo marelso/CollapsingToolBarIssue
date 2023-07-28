@@ -10,13 +10,18 @@ import com.marelso.collapsingtoolbarissue.data.Content
 import com.marelso.collapsingtoolbarissue.databinding.ItemContentBinding
 import java.lang.RuntimeException
 
-class ContentAdapter (private val dataList: List<Content>) :
-    RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
+class ContentAdapter : RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
 
     private var binding: ItemContentBinding? = null
+    private var dataList: List<Content>? = null
+
+    fun setData(data: List<Content>) {
+        this.dataList = data
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        this.binding = ItemContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        this.binding =
+            ItemContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return this.binding?.let { ViewHolder(it.root) } ?: throw RuntimeException("AA")
     }
