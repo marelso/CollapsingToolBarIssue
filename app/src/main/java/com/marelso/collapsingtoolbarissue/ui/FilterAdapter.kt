@@ -29,25 +29,16 @@ class FilterAdapter(private val click: ((Filter) -> Unit)) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         dataList?.let {
-            holder.bind(it[position])
+            holder.bind(it[position], click)
         }
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private var filter: Filter? = null
-        private val chip: Chip? = binding?.filter
-
-        init {
-            view.setOnClickListener { _view ->
-                filter?.let { _filter ->
-                    chip?.let { click.invoke(_filter) }
-                }
+        fun bind(filter: Filter, click: ((Filter) -> Unit)) {
+            binding?.filter?.text = filter.name
+            binding?.filter?.setOnClickListener {
+                click.invoke(filter)
             }
         }
-
-        fun bind(filter: Filter) {
-            chip?.text = filter.name
-        }
     }
-
 }
