@@ -26,10 +26,12 @@ class ContentAdapter : RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
         return this.binding?.let { ViewHolder(it.root) } ?: throw RuntimeException("AA")
     }
 
-    override fun getItemCount(): Int = dataList.size
+    override fun getItemCount(): Int = dataList?.size ?: 0
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(dataList[position])
+        dataList?.let {
+            holder.bind(it[position])
+        }
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
