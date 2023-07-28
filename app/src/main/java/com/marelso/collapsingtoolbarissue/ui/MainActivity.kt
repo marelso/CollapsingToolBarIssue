@@ -12,7 +12,11 @@ import com.marelso.collapsingtoolbarissue.data.Filter
 class MainActivity : AppCompatActivity() {
 
     private var contents: RecyclerView? = null
+    private var contentAdapter: ContentAdapter = ContentAdapter()
     private var filters: RecyclerView? = null
+    private var filtersAdapter: FilterAdapter = FilterAdapter {
+        filter(it)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,16 +30,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupViews() {
         val filters = mockFilters()
+        this.filtersAdapter.setData(filters)
 
         this.filters?.apply {
             this.layoutManager = LinearLayoutManager(this.context, RecyclerView.HORIZONTAL, false)
-            this.adapter = FilterAdapter(filters)
+            this.adapter = filtersAdapter
         }
 
         this.contents?.apply {
             this.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
-            this.adapter = ContentAdapter()
+            this.adapter = contentAdapter
         }
+    }
+
+    private fun filter(filter: Filter) {
+        this.contentAdapter.setData(filter.content)
+        this.contents?.adapter = this.contentAdapter
     }
 
     private fun mockFilters(): List<Filter> {
