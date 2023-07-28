@@ -9,10 +9,15 @@ import com.marelso.collapsingtoolbarissue.data.Filter
 import com.marelso.collapsingtoolbarissue.databinding.ItemFilterBinding
 import java.lang.RuntimeException
 
-class FilterAdapter(private val dataList: List<Filter>) :
+class FilterAdapter(private val click: ((Filter) -> Unit)) :
     RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
 
     private var binding: ItemFilterBinding? = null
+    private var dataList: List<Filter>? = null
+
+    fun setData(data: List<Filter>) {
+        this.dataList = data
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         this.binding = ItemFilterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -20,14 +25,26 @@ class FilterAdapter(private val dataList: List<Filter>) :
         return this.binding?.let { ViewHolder(it.root) } ?: throw RuntimeException("AA")
     }
 
-    override fun getItemCount(): Int = dataList.size
+    override fun getItemCount(): Int = dataList?.size ?: 0
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(dataList[position])
+        dataList?.let {
+            holder.bind(it[position])
+        }
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private var filter: Filter? = null
         private val chip: Chip? = binding?.filter
+
+        init {
+            view.setOnClickListener { _view ->
+                filter?.let { _filter ->
+                    chip?.let { click.invoke(_filter) }
+                }
+            }
+        }
+
         fun bind(filter: Filter) {
             chip?.text = filter.name
         }
