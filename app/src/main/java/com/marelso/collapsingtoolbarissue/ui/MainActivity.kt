@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val filters = mockFilters()
 
         this.filters?.apply {
-            this.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
+            this.layoutManager = LinearLayoutManager(this.context, RecyclerView.HORIZONTAL, false)
             this.adapter = FilterAdapter(filters)
         }
 
