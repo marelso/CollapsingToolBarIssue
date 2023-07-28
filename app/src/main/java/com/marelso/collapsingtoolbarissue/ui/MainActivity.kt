@@ -1,7 +1,8 @@
-package com.marelso.collapsingtoolbarissue
+package com.marelso.collapsingtoolbarissue.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.marelso.collapsingtoolbarissue.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
