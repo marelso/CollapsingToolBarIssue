@@ -3,7 +3,6 @@ package com.marelso.collapsingtoolbarissue.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.marelso.collapsingtoolbarissue.R
 import com.marelso.collapsingtoolbarissue.data.Content
